@@ -8,6 +8,7 @@ public class tvhProduct {
 	private int categoryLowId;
 	private int manufacturerId;
 	private String productImg;
+	private String manufacturerName;
 	
 	public tvhProduct() {
 		// TODO Auto-generated constructor stub
@@ -69,8 +70,16 @@ public class tvhProduct {
 		this.productImg = productImg;
 	}
 
+	public String getManufacturerName() {
+		return manufacturerName;
+	}
+
+	public void setManufacturerName(String manufacturerName) {
+		this.manufacturerName = manufacturerName;
+	}
+
 	public tvhProduct(int productId, String productName, String productDetail, float productPrice, int categoryLowId,
-			int manufacturerId, String productImg) {
+			int manufacturerId, String productImg, String manufacturerName) {
 		super();
 		this.productId = productId;
 		this.productName = productName;
@@ -79,6 +88,9 @@ public class tvhProduct {
 		this.categoryLowId = categoryLowId;
 		this.manufacturerId = manufacturerId;
 		this.productImg = productImg;
+		this.manufacturerName = manufacturerName;
 	}
+
+	
 	
 }

@@ -39,4 +39,34 @@
     <servlet-name>TVH_ProductDetailServlet</servlet-name>
     <url-pattern>/TVH_ProductDetailServlet</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>AD_HomeServlet</display-name>
+    <servlet-name>AD_HomeServlet</servlet-name>
+    <servlet-class>TranVietHoang.servlet.AD_HomeServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AD_HomeServlet</servlet-name>
+    <url-pattern>/AD_HomeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TVH_LoginServlet</display-name>
+    <servlet-name>TVH_LoginServlet</servlet-name>
+    <servlet-class>TranVietHoang.servlet.login.TVH_LoginServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TVH_LoginServlet</servlet-name>
+    <url-pattern>/TVH_LoginServlet</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>TVH_RegisterServlet</display-name>
+    <servlet-name>TVH_RegisterServlet</servlet-name>
+    <servlet-class>TranVietHoang.servlet.login.TVH_RegisterServlet</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>TVH_RegisterServlet</servlet-name>
+    <url-pattern>/TVH_RegisterServlet</url-pattern>
+  </servlet-mapping>
 </web-app>

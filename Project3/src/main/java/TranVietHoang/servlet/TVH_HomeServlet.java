@@ -7,6 +7,13 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.List;
+
+import TranVietHoang.Utils.tvhGetCookieUtil;
+import TranVietHoang.Utils.tvhProductUtil;
+import TranVietHoang.beans.tvhProduct;
 
 /**
  * Servlet implementation class TVH_HomeServlet
@@ -27,8 +34,41 @@ public class TVH_HomeServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/home.jsp");
-		dispatcher.forward(request, response);
+		Connection conn = null;
+		String errorString = null;
+		String isAdmin = null;
+		List<tvhProduct> list = null;
+		try {
+			conn = TranVietHoang.conn.TranVietHoangConnection.getMSSQLConnection();
+			
+			try {
+				list = tvhProductUtil.queryProduct(conn);
+				 isAdmin = tvhGetCookieUtil.GetUserCookieUser(request);
+			} catch (SQLException e) {
+				e.printStackTrace();
+				errorString = e.getMessage();
+			}
+			int totalProducts = tvhProductUtil.getTotalProductsCount(conn);
+			int productsPerPage = 2;
+			int totalPages = (int) Math.ceil((double) totalProducts / productsPerPage);
+			String pageParam = request.getParameter("page");
+			int currentPage = (pageParam != null) ? Integer.parseInt(pageParam) : 1;
+			int offset = (currentPage - 1) * productsPerPage;
+
+			request.setAttribute("errorString", errorString);
+			request.setAttribute("productList", list);
+			request.setAttribute("isAdmin", isAdmin);
+			request.setAttribute("totalPages", totalPages);
+		    request.setAttribute("currentPage", currentPage);
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/public/home.jsp");
+			dispatcher.forward(request, response);
+		} catch	(ClassNotFoundException | SQLException e1) {
+			e1.printStackTrace();
+			errorString = e1.getMessage();
+			RequestDispatcher dispatcher = request.getServletContext().getRequestDispatcher("/WEB-INF/views/public/home.jsp");
+			request.setAttribute("errorString", errorString);
+			dispatcher.forward(request, response);
+		}
 	}
 
 	/**
